@@ -16,9 +16,6 @@ const CFG = {
   spn:        0.03,        // rotation rate
   rpR:        5,           // repel radius
   rpS:        0.35,        // repel strength
-  scP:        8,           // scroll push
-  scD:        6,           // scroll drift
-  scSp:       0.1,         // scroll spin
   prlx:       0.6,         // parallax
 };
 

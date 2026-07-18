@@ -59,9 +59,6 @@ const ptr=mkPointer(THREE);
 const mouseNDC={x:0,y:0};
 const mouseSmooth={x:0,y:0};
 
-// --- SCROLL STATE ---
-let scrollTarget=0,scrollSmooth=0,scrollCurrent=0;
-
 // --- TIMING ---
 const appearStart=performance.now();
 let t0=0;
@@ -77,11 +74,6 @@ window.addEventListener('mousemove',(e)=>{
 
 window.addEventListener('mouseout',()=>{ptr.active=false;});
 
-window.addEventListener('scroll',()=>{
-  const sh=document.getElementById('scroll-host');
-  scrollTarget=cl(window.scrollY/(sh.scrollHeight-window.innerHeight),0,1);
-});
-
 window.addEventListener('resize',()=>{
   const w=window.innerWidth,h=window.innerHeight;
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -94,8 +86,6 @@ window.addEventListener('resize',()=>{
   bloomC.setSize(w,h);
   finalC.setPixelRatio(window.devicePixelRatio);
   finalC.setSize(w,h);
-  const sh=document.getElementById('scroll-host');
-  scrollTarget=cl(window.scrollY/(sh.scrollHeight-window.innerHeight),0,1);
 });
 
 // --- RENDER LOOP ---
@@ -107,11 +97,6 @@ function animate(){
   const dt=Math.min(0.05,t-t0);
   if(t0===0){t0=t;}
   t0=t;
-
-  // scroll double-dampening
-  scrollSmooth=lr(scrollSmooth,scrollTarget,0.10);
-  scrollCurrent=lr(scrollCurrent,scrollSmooth,0.06);
-  const scroll=scrollCurrent;
 
   // mouse smooth
   mouseSmooth.x=lr(mouseSmooth.x,mouseNDC.x,0.06);
@@ -128,18 +113,18 @@ function animate(){
   // update star uniforms
   // materials.uniforms.uTime.value=t; // uncomment if bugged
   materials.uniforms.uTime.value=t;
-  uDriftAccum+=dt*(CFG.drft+scroll*CFG.scD);
+  uDriftAccum+=dt*CFG.drft;
   materials.uniforms.uDrift.value=uDriftAccum;
   materials.uniforms.uOpacity.value=fade*2;
   materials.uniforms.uCursor.value.copy(ptr.world);
   materials.uniforms.uActivity.value=ptr.activity;
 
   // camera
-  camera.position.set(m.x*CFG.prlx,m.y*CFG.prlx,5-scroll*CFG.scP);
+  camera.position.set(m.x*CFG.prlx,m.y*CFG.prlx,5);
   camera.lookAt(m.x*CFG.prlx,m.y*CFG.prlx,-10);
 
   // rotate
-  starGroup.rotation.z+=dt*(CFG.spn+scroll*CFG.scSp);
+  starGroup.rotation.z+=dt*CFG.spn;
 
   // update final pass time
   finalP.uniforms.iTime.value=now/1000;

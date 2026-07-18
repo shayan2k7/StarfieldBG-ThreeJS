@@ -5,12 +5,12 @@ An animated star tunnel background. It uses **Three.js** — a JavaScript librar
 
 ## What it does
 
-A dense tunnel of stars flies past the camera in mint-green, jade, and bone colors. Each star twinkles independently, the whole field slowly rolls, and your mouse pushes nearby stars out of the way. Scrolling dives the camera forward.
+A dense tunnel of stars flies past the camera in mint-green, jade, and bone colors. Each star twinkles independently, the whole field slowly rolls, and your mouse pushes nearby stars out of the way.
 
 ## How to use
 
 1. Open `index.html` in a live server (VS Code "Go Live" works).
-2. Move your mouse to steer. Scroll to dive.
+2. Move your mouse to steer.
 3. That's it — no installation needed.
 
 ## Modification

@@ -14,15 +14,13 @@
 </script>
 <style>
 html, body { margin:0; padding:0; background:#000; }
-body { height:100%; overflow-x:hidden; }
+body { height:100%; }
 #scene { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
-#scroll-host { height:300vh; }
 #hint { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); color:#fff; font:16px/1 monospace; opacity:0.3; pointer-events:none; z-index:10; }
 </style>
 </head>
 <body>
 <canvas id="scene"></canvas>
-<div id="scroll-host"></div>
 
 <script type="module" src="./main.js"></script>
 </body>
